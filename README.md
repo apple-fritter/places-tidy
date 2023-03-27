@@ -1,29 +1,30 @@
-# Purge Metadata from Firefox Places Database
-This script removes extraneous metadata from the Firefox Places database file places.sqlite, resulting in a smaller file size.
+# Firefox Places SQLite Cleaner
+This is a simple shell script that removes extraneous metadata from the Firefox Places database file (places.sqlite), resulting in a smaller file size. The script exports a new places.sqlite file containing only the url and title columns from the moz_places table, which are the essential data for browsing history.
 
-Usage
-Make sure you have Firefox closed before running the script.
-Download the purge_metadata.sh script and save it to a folder of your choice.
-Open a terminal and navigate to the folder where the purge_metadata.sh script is located.
-Make the script executable by running the command chmod +x purge_metadata.sh.
-Run the script by typing ./purge_metadata.sh in the terminal.
-Wait for the script to complete. It will create a backup of the original places.sqlite file (called places_backup.sqlite) and a new, smaller version of the file (called places.sqlite).
-Replace the original places.sqlite file with the new one by moving or renaming the files. For example:
+## Prerequisites
+This script requires the following tools:
+* Bash shell (tested on Bash 4.4.20)
+* SQLite command-line tool (tested on SQLite 3.31.1)
+* This script was tested on Firefox version 94.0.2 macOS Big Sur version 11.6.1.
 
-bash:
-mv places.sqlite places_old.sqlite
-mv new_places.sqlite places.sqlite
+### Usage
 
+1. Download the firefox-places-cleaner.sh script to your computer.
+2. Open a terminal window and navigate to the directory where the script is located.
+3. Run the script by typing ./firefox-places-cleaner.sh.
+4. When prompted, enter the path to your Firefox profile directory (e.g. ~/.mozilla/firefox/xxxxxx.default).
 
-How it works
-The script uses the SQLite command-line tool to modify the places.sqlite file. Here are the steps it performs:
-Makes a backup of the original places.sqlite file.
-Opens the SQLite command-line tool.
-Creates a new table called new_moz_places with only the url and title columns.
-Drops the original moz_places table and renames the new one to moz_places.
-Exports the new places.sqlite file with only the moz_places table.
-Closes the SQLite shell.
-Replaces the original places.sqlite file with the new one.
+The script will create a backup of your original places.sqlite file and then remove the extraneous metadata from it.
+The resulting places.sqlite file will be exported to your Firefox profile directory as new_places.sqlite.
+The script will replace your original places.sqlite file with the new, smaller one.
+You're done!
+Note that the script modifies the places.sqlite file in place, so any changes made to the file after the last Firefox session will be lost. Also, Firefox should be closed when running the script to avoid conflicts.
 
-Disclaimer
-This script modifies the Firefox Places database file. Use it at your own risk, and make sure to backup your data before running the script. The script has been tested on Firefox version 94.0.1 on Linux, but may not work on other platforms or Firefox versions.
+Use Cases
+Here are some possible use cases for this script:
+
+* Reduce the size of your Firefox profile by removing extraneous metadata from the Places database.
+* Extract a list of URLs and titles from your Firefox history for web scraping, data analysis, or other purposes.
+
+## Disclaimer
+Use this script at your own risk. Although the script creates a backup of your original places.sqlite file, it's always a good idea to make a manual backup before running any scripts that modify important files. Also, Firefox may change the format of the Places database in future versions, which could make this script incompatible.
