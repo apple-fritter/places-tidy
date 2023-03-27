@@ -5,7 +5,8 @@ This is a simple shell script that removes extraneous metadata from the Firefox 
 This script requires the following tools:
 * Bash shell (tested on Bash 4.4.20)
 * SQLite command-line tool (tested on SQLite 3.31.1)
-* This script was tested on Firefox version 94.0.2 macOS Big Sur version 11.6.1.
+
+This script was tested on Firefox version 94.0.2 macOS Big Sur version 11.6.1.
 
 ### Usage
 
