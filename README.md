@@ -1,4 +1,4 @@
-# Firefox Places SQLite Cleaner
+# places-tidy
 
 This is a simple shell script that removes extraneous metadata from the Firefox Places database file (`places.sqlite`), resulting in a smaller file size. The script exports a new `places.sqlite` file containing only the `url` and `title` columns from the `moz_places` table, which are the essential data for browsing history.
 
