@@ -32,3 +32,7 @@ Here are some possible use cases for this script:
 ## Disclaimer
 
 Use this script at your own risk. Although the script creates a backup of your original `places.sqlite` file, it's always a good idea to make a manual backup before running any scripts that modify important files. Also, Firefox may change the format of the Places database in future versions, which could make this script incompatible.
+
+## License
+
+This script is released under the [MIT License](LICENSE).
