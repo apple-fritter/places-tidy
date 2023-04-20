@@ -12,7 +12,7 @@ This script was tested on Firefox version 94.0.2 and macOS Big Sur version 11.6.
 
 ### Usage
 
-1. Download the `firefox-places-cleaner.sh` script to your computer.
+1. Download the `places-tidy.sh` script to your computer.
 2. Open a terminal window and navigate to the directory where the script is located.
 3. Run the script by typing `./places-tidy.sh`, and follow the prompts.
    * If you provide the path to your Firefox profile directory as a command-line argument, the script will use it.
