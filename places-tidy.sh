@@ -1,45 +1,43 @@
 #!/bin/bash
 
-echo "This script will remove extraneous metadata from the Firefox Places database file."
+# Name of the SQLite database file
+db_file="places.sqlite"
 
-# Check if user provided a configuration file as an argument
-if [ -n "$1" ]; then
-  profile_dir="$1"
-else
-  # Search for the default Firefox profile directory
-  profile_dir=$(find "$HOME/.mozilla/firefox/" -maxdepth 1 -type d -name "*.default*" -print -quit)
+# Execute DELETE commands for each table
+echo "Emptying table: moz_anno_attributes"
+sqlite3 "$db_file" "DELETE FROM moz_anno_attributes;"
 
-  if [ -z "$profile_dir" ]; then
-    echo "Error: Could not find the Firefox profile directory."
-    exit 1
-  fi
-fi
+echo "Emptying table: moz_annos"
+sqlite3 "$db_file" "DELETE FROM moz_annos;"
 
-# Check if the places.sqlite file exists within the profile directory
-places_file="$profile_dir/places.sqlite"
-if [ ! -f "$places_file" ]; then
-  echo "Error: File '$places_file' not found."
-  exit 1
-fi
+echo "Emptying table: moz_bookmarks_deleted"
+sqlite3 "$db_file" "DELETE FROM moz_bookmarks_deleted;"
 
-echo "Found places file: $places_file"
+echo "Emptying table: moz_inputhistory"
+sqlite3 "$db_file" "DELETE FROM moz_inputhistory;"
 
-backup_file="$profile_dir/places_backup.sqlite"
-new_file="$profile_dir/new_places.sqlite"
+echo "Emptying table: moz_items_annos"
+sqlite3 "$db_file" "DELETE FROM moz_items_annos;"
 
-echo "Creating backup of the original places file..."
-cp "$places_file" "$backup_file"
+echo "Emptying table: moz_keywords"
+sqlite3 "$db_file" "DELETE FROM moz_keywords;"
 
-echo "Removing extraneous metadata from the places file..."
-sqlite3 "$places_file" <<EOF
-CREATE TABLE new_moz_places AS SELECT url, title FROM moz_places;
-DROP TABLE moz_places;
-ALTER TABLE new_moz_places RENAME TO moz_places;
-VACUUM;
-EOF
+echo "Emptying table: moz_meta"
+sqlite3 "$db_file" "DELETE FROM moz_meta;"
 
-echo "Exporting new places file with only the moz_places table..."
-sqlite3 "$places_file" ".clone $new_file"
+echo "Emptying table: moz_origins"
+sqlite3 "$db_file" "DELETE FROM moz_origins;"
 
-echo "Replacing original places file with the new one..."
-mv "$new_file" "$places_file"
+echo "Emptying table: moz_places_metadata_search_queries"
+sqlite3 "$db_file" "DELETE FROM moz_places_metadata_search_queries;"
+
+echo "Emptying table: moz_places_metadata"
+sqlite3 "$db_file" "DELETE FROM moz_places_metadata;"
+
+echo "Emptying table: moz_places"
+sqlite3 "$db_file" "DELETE FROM moz_places;"
+
+echo "Emptying table: moz_previews_tombstones"
+sqlite3 "$db_file" "DELETE FROM moz_previews_tombstones;"
+
+echo "All specified tables have been emptied."
